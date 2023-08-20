@@ -7,11 +7,13 @@ const Recipes = () => {
         search: "",
         list: []
     })
+    const [loading, setLoading] = useState(false)
 
     const handleSubmit= async (e) => {
         e.preventDefault(); //prevent automatic page refresh
 
         try {
+            setLoading(true);
             if (search.trim()==="") {
                 setRecipes ({ search, list: []})
                 return
@@ -30,9 +32,12 @@ const Recipes = () => {
                 setRecipes({search, list: filteredRecipes})
             } else {
                 setRecipes({search, list: []})
-            }
+            } 
         } catch (error) {
             console.error("Error Fetching Data", error)
+        }
+        finally {
+            setLoading(false);
         }
     }
     
@@ -46,9 +51,10 @@ const Recipes = () => {
                 <input type="text" value={search} onChange={handleInputChange} />
                 <button type="submit">Search!</button>
             </form>
+            {loading ===true && <p>Loading Recipes!</p>}
             { <ul>
                 {recipe.list.map((recipe,idMeal) => (
-                    <li key={idMeal}>{recipe.strMeal}</li>
+                    <li key={idMeal}>{recipe.strMeal} <br /> <img className="mealImage" src={recipe.strMealThumb} alt="Meal"/> <br /> <a href={recipe.strYoutube}>Youtube</a></li>
                     // <Card key={idMeal}>
                     //     <Card.Body>
                     //         <Card.Title>{recipe.strMeal}</Card.Title>

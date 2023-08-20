@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+li {
+  display: inline-block;
+}
+
+.mealImage{
+  width: 20vw;
+  height: auto;
+}
